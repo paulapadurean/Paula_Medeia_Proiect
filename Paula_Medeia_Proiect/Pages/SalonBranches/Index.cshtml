@@ -1,0 +1,74 @@
+﻿@page
+@model Paula_Medeia_Proiect.Pages.SalonBranches.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.SalonBranchData.SalonBranches.First().BranchName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SalonBranchData.SalonBranches.First().Location)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.SalonBranchData.SalonBranches)
+        {
+            string selectedRow = "";
+            if (item.ID == Model.SalonBranchID)
+            {
+                selectedRow = "table-success";
+            }
+
+            <tr class="@selectedRow">
+                <td>
+                    @Html.DisplayFor(modelItem => item.BranchName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Location)
+                </td>
+                <td>
+                    <a asp-page="./Index" asp-route-id="@item.ID">Select</a> |
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@if (Model.SalonBranchData.Services != null)
+{
+    <h3>Services Offered by Selected Branch</h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service Name</th>
+                <th>Price</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var service in Model.SalonBranchData.Services)
+            {
+                <tr>
+                    <td>@service.Name</td>
+                    <td>@service.Price.ToString("C")</td>
+                    <td>@service.Description</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}

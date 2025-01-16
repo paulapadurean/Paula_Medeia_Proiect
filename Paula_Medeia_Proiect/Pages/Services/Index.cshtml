@@ -1,0 +1,59 @@
+﻿@page
+@model Paula_Medeia_Proiect.Pages.Services.IndexModel
+
+@{
+    ViewData["Title"] = "Services";
+}
+
+<h1>Services</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+
+
+<form method="get" class="mb-3">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" name="SearchString" class="form-control"
+                   placeholder="Search by Service Name"
+                   value="@Model.SearchString" />
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a asp-page="./Index" class="btn btn-secondary">Reset</a>
+        </div>
+    </div>
+</form>
+
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Service Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Service Date</th>
+            <th>Salon Branch Name</th>
+            <th>Stylist Name</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Service)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.Description</td>
+                <td>@item.Price</td>
+                <td>@item.ServiceDate.ToShortDateString()</td>
+                <td>@item.SalonBranch?.BranchName</td>
+                <td>@item.Stylist?.FullName</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID" class="btn btn-sm btn-warning">Edit</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

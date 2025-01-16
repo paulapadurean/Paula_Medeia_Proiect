@@ -1,0 +1,47 @@
+﻿@page
+@model Paula_Medeia_Proiect.Pages.Bookings.IndexModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-page="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Client)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].Service)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Booking[0].AppointmentDate)
+            </th>
+            <th>@Html.DisplayNameFor(model => model.Booking[0].Client.FullName)</th>
+            <th>@Html.DisplayNameFor(model => model.Booking[0].Service.Name)</th>
+            <th>@Html.DisplayNameFor(model => model.Booking[0].AppointmentDate)</th>
+            <th></th>
+          
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Booking) {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Client.FullName)</td>
+                <td>@Html.DisplayFor(modelItem => item.Service.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.AppointmentDate)</td>
+                <td>
+                    <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
+                    <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
+                    <a asp-page="./Delete" asp-route-id="@item.ID">Delete</a>
+                </td>
+            </tr>
+}
+    </tbody>
+</table>
